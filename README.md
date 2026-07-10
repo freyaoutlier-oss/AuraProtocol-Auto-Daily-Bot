@@ -76,7 +76,7 @@ node index.js run       # run everything, THEN auto-loop every 8h (daily + fauce
 After the first run (and the interactive settings are saved to config.json), the bot immediately loops every 8 hours. Press Ctrl+C to stop. Run it in a `screen` so it stays alive after the terminal is closed. Every command applies to ALL wallets in `account.txt`.
 
 ## Notes
-- Native LIT is required for on-chain gas (faucet/stake). Check balance via explorer liteforge.explorer.caldera.xyz.
+- Native zkltc is required for on-chain gas (faucet/stake). Check balance via explorer liteforge.explorer.caldera.xyz.
 - Social tasks (Follow X, Join TG, Connect Discord/X) are NOT auto-claimed — they need manual OAuth on the website. The bot only verifies on-chain/streak tasks that are not yet completed.
 - `index` in verify = 0-based task position in the `/api/incentives/me` response (verified: execute_first_stake = index 5).
 - Files: lib/{chain,contracts,auth,api,faucet,staking,tasks,config,runner}.js

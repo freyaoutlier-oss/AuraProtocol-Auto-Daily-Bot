@@ -1,0 +1,5 @@
+# account.txt — one private key per line.
+# Lines starting with # and blank lines are ignored.
+# Example:
+# 0xaaaa1111...your_private_key_here
+# 0xbbbb2222...another_private_key_here

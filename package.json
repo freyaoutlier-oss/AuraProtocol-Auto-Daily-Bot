@@ -1,0 +1,20 @@
+{
+  "name": "auralaunch-bot",
+  "version": "1.0.0",
+  "description": "Auto daily bot for beta.auralaunch.org incentives (SIWE-style login, faucet, staking, onchain task sync)",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js run",
+    "daemon": "node daemon.js",
+    "login": "node index.js login",
+    "daily": "node index.js daily",
+    "faucet": "node index.js faucet",
+    "stake": "node index.js stake",
+    "tasks": "node index.js tasks"
+  },
+  "dependencies": {
+    "axios": "^1.18.1",
+    "viem": "^2.55.0"
+  }
+}

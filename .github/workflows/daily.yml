@@ -1,0 +1,55 @@
+name: AuraLaunch Auto Daily
+
+# Runs the AuraLaunch Auto-Daily Bot once per 8h on GitHub's servers.
+# Each run performs exactly ONE cycle (daily claim -> faucet -> stake -> tasks)
+# via run_github.sh, then exits â€” so the per-run AUR/REV balance & points
+# change shows up fresh in every run's log.
+
+on:
+  schedule:
+    # Every 8 hours (UTC) â‰ˆ 07:00 / 15:00 / 23:00 WIB. Matches the bot's
+    # 8h auto-loop + faucet 8h cooldown, so each run claims ~maximally
+    # (3x/day). Edit to taste (https://crontab.guru).
+    - cron: "0 */8 * * *"
+  # Allows you to trigger a run from the Actions tab (no coding needed).
+  workflow_dispatch: {}
+
+# Minimal permissions â€” the job only needs to read the repo.
+permissions:
+  contents: read
+
+# Never run two daily jobs at once.
+concurrency:
+  group: auralaunch-daily
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    # Hard cap so a stuck run can't burn all your free minutes.
+    timeout-minutes: 120
+    env:
+      # These are injected from Secrets at runtime (never committed).
+      ACCOUNTS: ${{ secrets.ACCOUNTS }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      RPC_URL: ${{ secrets.RPC_URL }}
+      DRY_RUN: ${{ secrets.DRY_RUN }}
+      STAKE_AURA: ${{ secrets.STAKE_AURA }}
+      STAKE_REV: ${{ secrets.STAKE_REV }}
+      STAKE_TIMES: ${{ secrets.STAKE_TIMES }}
+      WALLET_CONCURRENCY: ${{ secrets.WALLET_CONCURRENCY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run one daily cycle
+        run: bash run_github.sh

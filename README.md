@@ -80,3 +80,92 @@ After the first run (and the interactive settings are saved to config.json), the
 - Social tasks (Follow X, Join TG, Connect Discord/X) are NOT auto-claimed — they need manual OAuth on the website. The bot only verifies on-chain/streak tasks that are not yet completed.
 - `index` in verify = 0-based task position in the `/api/incentives/me` response (verified: execute_first_stake = index 5).
 - Files: lib/{chain,contracts,auth,api,faucet,staking,tasks,config,runner}.js
+
+- ## ðŸ¤– Run on GitHub Actions (free, no VPS)
+
+Run the bot on GitHub's servers with zero setup. A scheduled workflow fires
+**every 8 hours** (the bot's native loop interval + the faucet's 8h
+cooldown), runs exactly ONE cycle (daily claim â†’ faucet â†’ stake â†’ tasks) via
+[`run_github.sh`](run_github.sh), then exits â€” so the per-run **AUR / REV
+balance & points change** shows up fresh in every run's log.
+
+> Why every 8h and not once a day? The faucet has an 8h cooldown and the bot
+> is built to loop every 8h. A 3x/day schedule maximizes faucet claims
+> (â‰ˆ3x/day) and keeps each job to just a few active minutes â€” cheap on free
+> minutes. One daily run would waste ~2/3 of the faucet windows.
+
+**Why a wrapper?** `node index.js run` finishes one cycle and then
+**auto-loops every 8h** (`setInterval`) â€” it never exits on its own, which
+would hang a CI job forever. `run_github.sh` launches the bot in the
+background, waits for the first cycle to finish (watching for the
+`Bot auto-loop every` log line, printed right *before* the loop starts), then
+kills the bot and prints the full log to the Actions UI. The bot source is
+untouched, so upstream `git pull` updates still apply cleanly.
+
+**1. Add the files** (via web UI or `git push`):
+- `.github/workflows/daily.yml`
+- `run_github.sh`
+- `.gitignore` (exclude `account.txt`, `.env`, `config.json`)
+
+**2. Add Secrets** (repo â†’ Settings â†’ Secrets and variables â†’ Actions):
+
+| Secret               | Value                                                          |
+|----------------------|---------------------------------------------------------------|
+| `ACCOUNTS`           | Private keys, **one per line** (same as `account.txt`)        |
+| `PRIVATE_KEY`        | *(fallback)* single key if `ACCOUNTS` is empty                |
+| `RPC_URL` *(opt)*    | Custom RPC (default is fine)                                  |
+| `DRY_RUN` *(opt)*    | `true` to simulate (no tx/claim) â€” great for a first test    |
+| `STAKE_AURA` *(opt)* | AURA stake amount or `50%` (else `config.json` default)      |
+| `STAKE_REV` *(opt)*  | REV stake amount                                              |
+| `STAKE_TIMES` *(opt)*| How many times to stake per cycle                             |
+| `WALLET_CONCURRENCY` *(opt)* | Parallel wallets (default 1)                           |
+
+> âš ï¸ The bot reads env vars **directly** (no `.env` loader), so the workflow
+> injects these from Secrets at runtime. `account.txt` / `config.json` are
+> written from Secrets / repo and excluded by `.gitignore` â€” **never commit
+> your private keys**.
+
+**3. Run it**
+- Automatic: **every 8 hours** (00:00 / 08:00 / 16:00 UTC â‰ˆ 07:00 / 15:00 /
+  23:00 WIB). Edit `cron:` in `daily.yml`.
+- Manual smoke test: **Actions â†’ AuraLaunch Auto Daily â†’ Run workflow**.
+
+---
+
+## ðŸ“ˆ Daily AUR / REV balance & points change
+
+Each 8h run prints the full result, so you can watch your **AUR / REV
+balance and incentive points move** every cycle:
+
+- **Daily login claim** â€” `[1] Daily login claim` shows the API response
+  (points / streak status) for each wallet.
+- **Faucet (REV/AURA)** â€” `[2] Faucet REV/AURA` logs `faucet REV: ... ready=`
+  and `tx: 0x...` when a claim goes through. 8h cooldown, so it only fires
+  when ready.
+- **Auto-stake** â€” `[3] Auto-stake` logs `AURA balance: N` and
+  `stake AURA tx: 0x...` (and REV), so each run shows exactly how much moved
+  into the staking pool.
+- **Tasks sync** â€” `[4] Sync onchain tasks` verifies on-chain/streak tasks.
+- **Full log in Actions** â€” the entire bot log is printed at the end of every
+  run, giving you a permanent, timestamped record under the Actions tab.
+
+Because the job runs **every 8h**, comparing consecutive runs' faucet /
+stake / balance lines (or the API response in step [1]) gives you the
+**per-cycle change in your AUR / REV balance and incentive points**.
+
+> ðŸ”Ž The bot does **not** persist historical balances itself â€” it reports the
+> *current* cycle activity. Track long-term change by keeping the Actions run
+> logs (each run is archived) or piping the log into your own tracker.
+
+==============================================================================
+TROUBLESHOOTING
+==============================================================================
+- Job gagal langsung ("No accounts"): secret ACCOUNTS kosong -> isi di Step 5.
+- Ingin tes tanpa burn gas: set secret DRY_RUN=true, jalankan manual, lihat
+  log, lalu kosongkan DRY_RUN.
+- Mau ubah jadwal: edit cron "0 */8 * * *" di daily.yml
+  ("0 4 * * *" = 1x/hari 11:00 WIB, "0 */4 * * *" = tiap 4 jam).
+- Log numpuk/aneh: cek tab Actions -> run terakhir -> step "Run one daily
+  cycle" -> bagian "BOT LOG".
+==============================================================================
+

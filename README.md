@@ -157,6 +157,12 @@ stake / balance lines (or the API response in step [1]) gives you the
 > *current* cycle activity. Track long-term change by keeping the Actions run
 > logs (each run is archived) or piping the log into your own tracker.
 
+<!-- AURALAUNCH_RUNLOG_START -->
+## 📋 Bot Run Log
+
+_Run the bot to populate this section automatically — it records the daily-login points and faucet AURA/REV claimed by each wallet after every cycle._
+<!-- AURALAUNCH_RUNLOG_END -->
+
 ==============================================================================
 TROUBLESHOOTING
 ==============================================================================

@@ -179,12 +179,13 @@ _Last updated: 2026-07-16 19:54:48 UTC_
 ==============================================================================
 TROUBLESHOOTING
 ==============================================================================
-- Job gagal langsung ("No accounts"): secret ACCOUNTS kosong -> isi di Step 5.
-- Ingin tes tanpa burn gas: set secret DRY_RUN=true, jalankan manual, lihat
-  log, lalu kosongkan DRY_RUN.
-- Mau ubah jadwal: edit cron "0 */8 * * *" di daily.yml
-  ("0 4 * * *" = 1x/hari 11:00 WIB, "0 */4 * * *" = tiap 4 jam).
-- Log numpuk/aneh: cek tab Actions -> run terakhir -> step "Run one daily
-  cycle" -> bagian "BOT LOG".
+- Job fails immediately ("No accounts"): the ACCOUNTS secret is empty -> fill
+  it in Step 5 (Secrets).
+- Want to test without spending gas: set the DRY_RUN secret to true, run
+  manually, check the log, then clear DRY_RUN.
+- Want to change the schedule: edit the cron "0 */8 * * *" in daily.yml
+  ("0 4 * * *" = once/day at 04:00 UTC, "0 */4 * * *" = every 4 hours).
+- Logs look messy/odd: open the Actions tab -> latest run -> the
+  "Run one daily cycle" step -> the "BOT LOG" section.
 ==============================================================================
 

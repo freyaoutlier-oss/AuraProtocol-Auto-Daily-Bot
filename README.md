@@ -160,7 +160,20 @@ stake / balance lines (or the API response in step [1]) gives you the
 <!-- AURALAUNCH_RUNLOG_START -->
 ## 📋 Bot Run Log
 
-_Run the bot to populate this section automatically — it records the daily-login points and faucet AURA/REV claimed by each wallet after every cycle._
+_Last updated: 2026-07-16 19:54:48 UTC_
+
+### 🟢 Last Run
+
+| Wallet | Daily Login | Faucet AURA | Faucet REV | Status |
+|--------|-------------|-------------|------------|--------|
+| 0xA04E…5C49 | ℹ️ already (streak 1) | — | — | ok |
+
+### 📜 History (newest first, last 30)
+
+| Time (UTC) | Wallet | Daily Login | AURA | REV | Status |
+|------------|--------|-------------|------|-----|--------|
+| 2026-07-16 19:54:48 UTC | 0xA04E…5C49 | ℹ️ already (streak 1) | — | — | ok |
+
 <!-- AURALAUNCH_RUNLOG_END -->
 
 ==============================================================================

@@ -1,5 +1,17 @@
 [
   {
+    "time": "2026-07-25 02:57:09 UTC",
+    "wallets": [
+      {
+        "address": "0xDDd8Ee988F261fd25C7F5D32FD7343fc62f42153",
+        "daily": "✅ +40 pts (streak 2)",
+        "aura": "+10",
+        "rev": "+10",
+        "status": "ok"
+      }
+    ]
+  },
+  {
     "time": "2026-07-24 17:41:06 UTC",
     "wallets": [
       {

@@ -1,5 +1,17 @@
 [
   {
+    "time": "2026-07-26 10:04:18 UTC",
+    "wallets": [
+      {
+        "address": "0xDDd8Ee988F261fd25C7F5D32FD7343fc62f42153",
+        "daily": "ℹ️ already (streak 3)",
+        "aura": "+10",
+        "rev": "+10",
+        "status": "ok"
+      }
+    ]
+  },
+  {
     "time": "2026-07-26 03:23:36 UTC",
     "wallets": [
       {
@@ -343,18 +355,6 @@
         "daily": "✅ +40 pts (streak 2)",
         "aura": "+10",
         "rev": "+10",
-        "status": "ok"
-      }
-    ]
-  },
-  {
-    "time": "2026-07-16 19:54:48 UTC",
-    "wallets": [
-      {
-        "address": "0xA04E3832b143a1C72663fCC6C16A1019f0E35C49",
-        "daily": "ℹ️ already (streak 1)",
-        "aura": "—",
-        "rev": "—",
         "status": "ok"
       }
     ]

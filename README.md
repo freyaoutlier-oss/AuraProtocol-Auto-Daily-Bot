@@ -160,18 +160,19 @@ stake / balance lines (or the API response in step [1]) gives you the
 <!-- AURALAUNCH_RUNLOG_START -->
 ## 📋 Bot Run Log
 
-_Last updated: 2026-07-27 03:32:59 UTC_
+_Last updated: 2026-07-27 11:29:23 UTC_
 
 ### 🟢 Last Run
 
 | Wallet | Daily Login | Faucet AURA | Faucet REV | Status |
 |--------|-------------|-------------|------------|--------|
-| 0xDDd8…2153 | ✅ +80 pts (streak 4) | +10 | +10 | ok |
+| 0xDDd8…2153 | ℹ️ already (streak 4) | +10 | +10 | ok |
 
 ### 📜 History (newest first, last 30)
 
 | Time (UTC) | Wallet | Daily Login | AURA | REV | Status |
 |------------|--------|-------------|------|-----|--------|
+| 2026-07-27 11:29:23 UTC | 0xDDd8…2153 | ℹ️ already (streak 4) | +10 | +10 | ok |
 | 2026-07-27 03:32:59 UTC | 0xDDd8…2153 | ✅ +80 pts (streak 4) | +10 | +10 | ok |
 | 2026-07-26 17:06:49 UTC | 0xDDd8…2153 | ℹ️ already (streak 3) | +10 | +10 | ok |
 | 2026-07-26 10:04:18 UTC | 0xDDd8…2153 | ℹ️ already (streak 3) | +10 | +10 | ok |
@@ -201,7 +202,6 @@ _Last updated: 2026-07-27 03:32:59 UTC_
 | 2026-07-18 09:37:29 UTC | 0xDDd8…2153 | ℹ️ already (streak 2) | +10 | +10 | ok |
 | 2026-07-18 02:48:25 UTC | 0xDDd8…2153 | ✅ +40 pts (streak 2) | +10 | +10 | ok |
 | 2026-07-17 17:16:16 UTC | 0xDDd8…2153 | ℹ️ already (streak 1) | +10 | +10 | ok |
-| 2026-07-17 10:02:34 UTC | 0xDDd8…2153 | ℹ️ already (streak 1) | +10 | +10 | ok |
 
 <!-- AURALAUNCH_RUNLOG_END -->
 
